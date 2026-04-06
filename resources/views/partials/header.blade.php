@@ -25,7 +25,7 @@
                     x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="opacity-0 scale-95"
                     x-transition:enter-end="opacity-100 scale-100"
-                    class="absolute right-0 mt-3 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
+                    class="fixed inset-x-4 sm:absolute sm:inset-x-auto sm:right-0 mt-3 sm:w-80 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
                     <div class="p-4 border-b border-gray-50 flex items-center justify-between bg-gray-50/50">
                         <span class="font-bold text-gray-800 text-sm">Notifikasi</span>
                         @if($unreadCount > 0)
