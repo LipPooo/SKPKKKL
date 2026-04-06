@@ -31,7 +31,6 @@ class AuthController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'employee_id' => ['required', 'string', 'max:255', 'unique:users'],
-            'ic_number' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -39,7 +38,6 @@ class AuthController extends Controller
         User::create([
             'name' => $request->name,
             'employee_id' => $request->employee_id,
-            'ic_number' => $request->ic_number,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'member', // Default role changed from pencadang to member
