@@ -11,8 +11,8 @@
      style="display: none;"></div>
 
 <!-- Sidebar -->
-<aside class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 flex flex-col justify-between shadow-2xl z-50 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:shadow-sm"
-       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
+<aside class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 flex flex-col justify-between shadow-2xl z-50 transform transition-transform duration-300 ease-in-out -translate-x-full md:relative md:translate-x-0 md:shadow-sm"
+       :class="{ 'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen, 'md:translate-x-0': true }"
        @click.away="if (window.innerWidth < 768) sidebarOpen = false">
     <div>
         <!-- Logo / Brand -->
