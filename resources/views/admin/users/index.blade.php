@@ -11,8 +11,9 @@
             <span class="w-3 h-3 rounded-full bg-amber-500 shadow-sm shadow-amber-500/20"></span>
             Menunggu Kelulusan ({{ $pendingUsers->count() }})
         </h2>
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-w-0">
+            <!-- Table for Desktop -->
+            <div class="overflow-x-auto hidden md:block">
                 <table class="w-full text-left border-collapse min-w-[700px]">
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 bg-gray-50/10">
@@ -38,7 +39,7 @@
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                                    <button type="submit" class="text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider text-right">
                                         Padam
                                     </button>
                                 </form>
@@ -52,6 +53,40 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Cards for Mobile -->
+            <div class="md:hidden divide-y divide-gray-100">
+                @forelse($pendingUsers as $user)
+                <div class="p-5 space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="min-w-0 flex-1">
+                            <p class="font-bold text-gray-900 truncate">{{ $user->name }}</p>
+                            <p class="text-xs text-gray-500 font-mono mt-1 uppercase tracking-wider">ID: {{ $user->employee_id }}</p>
+                            <p class="text-xs text-gray-500 mt-0.5 truncate">{{ $user->email }}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="flex-1">
+                            @csrf
+                            <button type="submit" class="w-full bg-emerald-50 text-emerald-600 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest border border-emerald-100 shadow-sm active:scale-95 transition-all">
+                                Lulus
+                            </button>
+                        </form>
+                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="flex-1" onsubmit="return confirm('Adakah anda pasti?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="w-full bg-red-50 text-red-600 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest border border-red-100 shadow-sm active:scale-95 transition-all">
+                                Padam
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                @empty
+                <div class="p-12 text-center text-gray-500 text-sm">
+                    Tiada pendaftaran menunggu kelulusan.
+                </div>
+                @endforelse
+            </div>
         </div>
     </div>
 
@@ -61,8 +96,9 @@
             <span class="w-3 h-3 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/20"></span>
             Pengguna Berdaftar ({{ $approvedUsers->count() }})
         </h2>
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-w-0">
+            <!-- Table for Desktop -->
+            <div class="overflow-x-auto hidden md:block">
                 <table class="w-full text-left border-collapse min-w-[700px]">
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 bg-gray-50/10">
@@ -95,6 +131,34 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Cards for Mobile -->
+            <div class="md:hidden divide-y divide-gray-100">
+                @foreach($approvedUsers as $user)
+                <div class="p-5 space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $user->role === 'boss' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
+                                    {{ $user->role === 'boss' ? 'Pengerusi' : 'AJK' }}
+                                </span>
+                            </div>
+                            <p class="font-bold text-gray-900 truncate">{{ $user->name }}</p>
+                            <p class="text-xs text-gray-500 font-mono mt-0.5 uppercase tracking-wider">ID: {{ $user->employee_id }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="w-full" onsubmit="return confirm('Adakah anda pasti?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="w-full bg-red-50 text-red-600 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest border border-red-100 shadow-sm active:scale-95 transition-all">
+                                Padam Akaun
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>
