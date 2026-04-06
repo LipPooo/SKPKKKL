@@ -11,9 +11,14 @@
         <div class="lg:col-span-2 space-y-6">
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
                 <div class="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900">{{ $fundRequest->programReport->name_of_program }}</h2>
-                        <p class="text-gray-500 text-sm">Dikemukakan oleh {{ $fundRequest->requester->name }} pada {{ $fundRequest->created_at->format('d M Y, h:i A') }}</p>
+                    <div class="flex items-center gap-4">
+                        <img src="{{ $fundRequest->requester->profile_photo_url }}" 
+                             alt="{{ $fundRequest->requester->name }}" 
+                             class="w-12 h-12 rounded-xl object-cover border-2 border-gray-50 shadow-sm">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">{{ $fundRequest->programReport->name_of_program }}</h2>
+                            <p class="text-gray-500 text-sm">Dikemukakan oleh <span class="font-bold text-gray-700">{{ $fundRequest->requester->name }}</span> pada {{ $fundRequest->created_at->format('d M Y, h:i A') }}</p>
+                        </div>
                     </div>
                     <div class="shrink-0 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border
                         @if($fundRequest->status == 'approved_by_boss') bg-emerald-50 text-emerald-600 border-emerald-100
@@ -138,8 +143,10 @@
                 <div class="space-y-4 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                     @forelse($fundRequest->approvals as $approval)
                     <div class="flex items-start gap-3">
-                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center shrink-0 border border-gray-200">
-                            <span class="text-xs font-bold text-gray-500">{{ strtoupper(substr($approval->member->name,0,1)) }}</span>
+                        <div class="shrink-0">
+                            <img src="{{ $approval->member->profile_photo_url }}" 
+                                 alt="{{ $approval->member->name }}" 
+                                 class="w-9 h-9 rounded-full object-cover border border-gray-100 shadow-sm">
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-bold text-gray-800 truncate">{{ $approval->member->name }}</p>

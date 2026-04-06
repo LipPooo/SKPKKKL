@@ -26,10 +26,10 @@
                             <p class="text-[10px] text-gray-400 mt-0.5 font-bold uppercase tracking-wider">ID: PR-{{ $request->id }}</p>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex items-center gap-2">
-                                <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold border border-blue-200 shadow-sm">
-                                    {{ strtoupper(substr($request->requester->name, 0, 1)) }}
-                                </div>
+                            <div class="flex items-center gap-2.5">
+                                <img src="{{ $request->requester->profile_photo_url }}" 
+                                     alt="{{ $request->requester->name }}" 
+                                     class="w-8 h-8 rounded-lg object-cover border border-gray-100 shadow-sm">
                                 <span class="text-gray-700 font-bold">{{ $request->requester->name }}</span>
                             </div>
                         </td>
@@ -105,9 +105,9 @@
                 </div>
 
                 <div class="flex items-center gap-3 bg-gray-50/50 p-3 rounded-xl border border-gray-100">
-                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold border border-blue-200">
-                        {{ strtoupper(substr($request->requester->name, 0, 1)) }}
-                    </div>
+                    <img src="{{ $request->requester->profile_photo_url }}" 
+                         alt="{{ $request->requester->name }}" 
+                         class="w-9 h-9 rounded-lg object-cover border border-white shadow-sm">
                     <div>
                         <p class="text-[9px] text-gray-400 uppercase font-bold tracking-widest">Pemohon</p>
                         <p class="text-xs font-bold text-gray-700">{{ $request->requester->name }}</p>
