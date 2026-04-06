@@ -3,7 +3,7 @@
 @section('title', 'Tetapan Profil - SKPKKKL')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-8">
+<div class="max-w-4xl mx-auto space-y-8" x-data="{ imageUrl: '{{ auth()->user()->profile_photo_url }}' }">
     
     <!-- Profile Information -->
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden text-sm">
@@ -17,7 +17,7 @@
                 @method('PATCH')
                 
                 <!-- Profile Photo Section -->
-                <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-gray-50" x-data="{ imageUrl: '{{ auth()->user()->profile_photo_url }}' }">
+                <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-gray-50">
                     <div class="relative group">
                         <img :src="imageUrl" alt="Profile" class="w-24 h-24 rounded-2xl object-cover border-4 border-gray-50 shadow-sm transition-all group-hover:border-blue-100">
                         <label for="profile_photo" class="absolute inset-0 flex items-center justify-center bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white">
@@ -31,15 +31,11 @@
                         @error('profile_photo') <p class="text-red-500 text-[10px] mt-1 font-bold">{{ $message }}</p> @enderror
                         
                         @if(Auth::user()->profile_photo_path)
-                            <div class="mt-2 text-left">
-                                <form action="{{ route('profile.photo.destroy') }}" method="POST" onsubmit="return confirm('Padam gambar profil anda?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-700 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                        Padam Gambar
-                                    </button>
-                                </form>
+                            <div class="mt-2 text-left shadow-none">
+                                <button type="button" @click="$refs.deletePhotoForm.submit()" class="text-red-600 hover:text-red-700 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Padam Gambar
+                                </button>
                             </div>
                         @endif
                     </div>
@@ -112,6 +108,10 @@
         </div>
     </div>
 
+    <!-- Hidden form for profile photo deletion -->
+    <form x-ref="deletePhotoForm" action="{{ route('profile.photo.destroy') }}" method="POST" class="hidden">
+        @csrf
+        @method('DELETE')
+    </form>
 </div>
 @endsection
-
