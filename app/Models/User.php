@@ -21,7 +21,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'employee_id',
+        'ic_number',
         'password',
+        'role',
+        'is_approved',
     ];
 
     /**
@@ -44,6 +48,32 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_approved' => 'boolean',
         ];
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isApproved()
+    {
+        return $this->is_approved;
+    }
+
+    public function programReports()
+    {
+        return $this->hasMany(ProgramReport::class);
+    }
+
+    public function fundRequests()
+    {
+        return $this->hasMany(FundRequest::class, 'requester_id');
+    }
+
+    public function approvals()
+    {
+        return $this->hasMany(FundRequestApproval::class, 'member_id');
     }
 }
