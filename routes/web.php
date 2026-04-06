@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     // Admin Routes
     Route::middleware(AdminMiddleware::class)->prefix('admin')->name('admin.')->group(function () {
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+        Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+        Route::patch('/users/{id}', [AdminUserController::class, 'update'])->name('users.update');
         Route::post('/users/{id}/approve', [AdminUserController::class, 'approve'])->name('users.approve');
         Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     });

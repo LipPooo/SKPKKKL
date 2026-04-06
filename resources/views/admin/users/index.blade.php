@@ -37,6 +37,9 @@
                             <td class="px-6 py-4 text-gray-600">{{ $user->email }}</td>
                             <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
                             <td class="px-6 py-4 text-right space-x-2">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                                    Kemaskini
+                                </a>
                                 <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="inline">
                                     @csrf
                                     <button type="submit" class="text-emerald-600 hover:bg-emerald-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
@@ -77,6 +80,9 @@
                         </div>
                     </div>
                     <div class="flex gap-2">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-blue-50 text-blue-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-blue-100 shadow-sm active:scale-95 transition-all">
+                            Kemaskini
+                        </a>
                         <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="flex-1">
                             @csrf
                             <button type="submit" class="w-full bg-emerald-50 text-emerald-600 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest border border-emerald-100 shadow-sm active:scale-95 transition-all">
@@ -138,7 +144,10 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
-                            <td class="px-6 py-4 text-right">
+                            <td class="px-6 py-4 text-right flex justify-end gap-2">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider text-right">
+                                    Kemaskini
+                                </a>
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?')">
                                     @csrf
                                     @method('DELETE')
@@ -171,8 +180,11 @@
                             <p class="text-[9px] text-gray-400 mt-1 font-medium italic">Daftar: {{ $user->created_at->format('d M Y, h:i A') }}</p>
                         </div>
                     </div>
-                    <div>
-                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="w-full" onsubmit="return confirm('Adakah anda pasti?')">
+                    <div class="flex gap-2">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-blue-50 text-blue-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-blue-100 shadow-sm active:scale-95 transition-all">
+                            Kemaskini
+                        </a>
+                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="flex-1" onsubmit="return confirm('Adakah anda pasti?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="w-full bg-red-50 text-red-600 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest border border-red-100 shadow-sm active:scale-95 transition-all">
