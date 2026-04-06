@@ -86,7 +86,7 @@
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider opacity-0 group-hover:opacity-100">
+                                    <button type="submit" class="text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
                                         Padam
                                     </button>
                                 </form>

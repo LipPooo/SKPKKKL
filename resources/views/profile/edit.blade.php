@@ -12,11 +12,27 @@
             <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wider mt-1">Kemaskini nama dan alamat emel akaun anda.</p>
         </div>
         <div class="p-6 sm:p-8">
-            <form method="POST" action="{{ route('profile.update') }}" class="space-y-6">
+            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PATCH')
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Profile Photo Section -->
+                <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-gray-50" x-data="{ imageUrl: '{{ auth()->user()->profile_photo_url }}' }">
+                    <div class="relative group">
+                        <img :src="imageUrl" alt="Profile" class="w-24 h-24 rounded-2xl object-cover border-4 border-gray-50 shadow-sm transition-all group-hover:border-blue-100">
+                        <label for="profile_photo" class="absolute inset-0 flex items-center justify-center bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </label>
+                        <input type="file" name="profile_photo" id="profile_photo" class="sr-only" accept="image/*" @change="imageUrl = URL.createObjectURL($event.target.files[0])">
+                    </div>
+                    <div class="text-center sm:text-left space-y-1">
+                        <p class="text-sm font-bold text-gray-900">Gambar Profil</p>
+                        <p class="text-[10px] text-gray-500 font-medium leading-relaxed">Klik pada gambar untuk menukar. <br> Format JPG, PNG (Max. 1MB)</p>
+                        @error('profile_photo') <p class="text-red-500 text-[10px] mt-1 font-bold">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                     <div>
                         <label for="name" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Penuh</label>
                         <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required
