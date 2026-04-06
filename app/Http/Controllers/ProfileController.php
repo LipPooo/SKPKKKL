@@ -25,7 +25,7 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'profile_photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:10024'],
+            'profile_photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:10240'],
         ]);
 
         if ($request->hasFile('profile_photo')) {

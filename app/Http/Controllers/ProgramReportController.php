@@ -45,7 +45,7 @@ class ProgramReportController extends Controller
             'payment_details' => 'nullable|string',
             'pic_user_id' => 'required|exists:users,id',
             'recognition' => 'nullable|string',
-            'image_proof' => 'required|file|mimes:jpeg,png,jpg,pdf|max:5120',
+            'image_proof' => 'required|file|mimes:jpeg,png,jpg,pdf|max:10240',
         ]);
 
         $path = $request->file('image_proof')->store('proofs', 'public');
@@ -93,6 +93,11 @@ class ProgramReportController extends Controller
     public function destroy($id)
     {
         $report = ProgramReport::findOrFail($id);
+
+        // Security Check: Only admin or the owner can delete
+        if (!Auth::user()->isAdmin() && Auth::id() !== $report->user_id) {
+            abort(403, 'Anda tidak mempunyai kebenaran untuk memadam laporan ini.');
+        }
 
         // Delete associated prove file
         if ($report->image_proof_path) {
