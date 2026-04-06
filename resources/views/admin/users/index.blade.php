@@ -17,18 +17,25 @@
                 <table class="w-full text-left border-collapse min-w-[700px]">
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 bg-gray-50/10">
-                            <th class="px-6 py-4 font-medium">Nama</th>
+                            <th class="px-6 py-4 font-medium">Pengguna</th>
                             <th class="px-6 py-4 font-medium">No Pekerja</th>
                             <th class="px-6 py-4 font-medium">Email</th>
+                            <th class="px-6 py-4 font-medium">Tarikh Daftar</th>
                             <th class="px-6 py-4 font-medium text-right">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50 text-sm">
                         @forelse($pendingUsers as $user)
                         <tr class="hover:bg-gray-50/80 transition-colors group">
-                            <td class="px-6 py-4 font-bold text-gray-800">{{ $user->name }}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-8 h-8 rounded-lg object-cover border border-gray-100 shadow-sm">
+                                    <span class="font-bold text-gray-800">{{ $user->name }}</span>
+                                </div>
+                            </td>
                             <td class="px-6 py-4 text-gray-600 font-mono">{{ $user->employee_id }}</td>
                             <td class="px-6 py-4 text-gray-600">{{ $user->email }}</td>
+                            <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
                             <td class="px-6 py-4 text-right space-x-2">
                                 <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="inline">
                                     @csrf
@@ -47,7 +54,9 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-gray-500">Tiada pendaftaran menunggu kelulusan.</td>
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center text-gray-500">Tiada pendaftaran menunggu kelulusan.</td>
+                        </tr>
                         </tr>
                         @endforelse
                     </tbody>
@@ -58,11 +67,13 @@
             <div class="md:hidden divide-y divide-gray-100">
                 @forelse($pendingUsers as $user)
                 <div class="p-5 space-y-4">
-                    <div class="flex justify-between items-start gap-4">
+                    <div class="flex items-start gap-4">
+                        <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-12 h-12 rounded-xl object-cover border border-gray-100 shadow-sm">
                         <div class="min-w-0 flex-1">
                             <p class="font-bold text-gray-900 truncate">{{ $user->name }}</p>
-                            <p class="text-xs text-gray-500 font-mono mt-1 uppercase tracking-wider">ID: {{ $user->employee_id }}</p>
-                            <p class="text-xs text-gray-500 mt-0.5 truncate">{{ $user->email }}</p>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">No Pekerja: {{ $user->employee_id }}</p>
+                            <p class="text-[10px] text-gray-500 mt-0.5 truncate">{{ $user->email }}</p>
+                            <p class="text-[9px] text-gray-400 mt-1 font-medium italic">Daftar: {{ $user->created_at->format('d M Y, h:i A') }}</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
@@ -102,22 +113,31 @@
                 <table class="w-full text-left border-collapse min-w-[700px]">
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 bg-gray-50/10">
-                            <th class="px-6 py-4 font-medium">Nama</th>
+                            <th class="px-6 py-4 font-medium">Pengguna</th>
                             <th class="px-6 py-4 font-medium">No Pekerja</th>
+                            <th class="px-6 py-4 font-medium">Email</th>
                             <th class="px-6 py-4 font-medium">Peranan</th>
+                            <th class="px-6 py-4 font-medium">Tarikh Daftar</th>
                             <th class="px-6 py-4 font-medium text-right">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50 text-sm">
                         @foreach($approvedUsers as $user)
                         <tr class="hover:bg-gray-50/80 transition-colors group">
-                            <td class="px-6 py-4 font-bold text-gray-800">{{ $user->name }}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-8 h-8 rounded-lg object-cover border border-gray-100 shadow-sm">
+                                    <span class="font-bold text-gray-800">{{ $user->name }}</span>
+                                </div>
+                            </td>
                             <td class="px-6 py-4 text-gray-600 font-mono">{{ $user->employee_id }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ $user->email }}</td>
                             <td class="px-6 py-4 text-gray-600 capitalize">
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $user->role === 'boss' ? 'bg-purple-50 text-purple-600 border border-purple-100' : 'bg-blue-50 text-blue-600 border border-blue-100' }}">
-                                    {{ $user->role === 'boss' ? 'Pengerusi' : 'Ajawatankuasa' }}
+                                    {{ $user->role === 'boss' ? 'Pengerusi' : 'Ahli Jawatankuasa' }}
                                 </span>
                             </td>
+                            <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
                             <td class="px-6 py-4 text-right">
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?')">
                                     @csrf
@@ -137,15 +157,18 @@
             <div class="md:hidden divide-y divide-gray-100">
                 @foreach($approvedUsers as $user)
                 <div class="p-5 space-y-4">
-                    <div class="flex justify-between items-start gap-4">
+                    <div class="flex items-start gap-4">
+                        <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-12 h-12 rounded-xl object-cover border border-gray-100 shadow-sm">
                         <div class="min-w-0 flex-1">
-                            <div class="flex items-center gap-2 mb-1">
+                            <div class="flex items-center gap-2 mb-1.5">
                                 <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $user->role === 'boss' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
                                     {{ $user->role === 'boss' ? 'Pengerusi' : 'AJK' }}
                                 </span>
                             </div>
                             <p class="font-bold text-gray-900 truncate">{{ $user->name }}</p>
-                            <p class="text-xs text-gray-500 font-mono mt-0.5 uppercase tracking-wider">ID: {{ $user->employee_id }}</p>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">No Pekerja: {{ $user->employee_id }}</p>
+                            <p class="text-[10px] text-gray-500 mt-0.5 truncate">{{ $user->email }}</p>
+                            <p class="text-[9px] text-gray-400 mt-1 font-medium italic">Daftar: {{ $user->created_at->format('d M Y, h:i A') }}</p>
                         </div>
                     </div>
                     <div>
