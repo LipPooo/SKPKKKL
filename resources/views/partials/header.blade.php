@@ -63,14 +63,16 @@
             
             <div class="h-6 w-px bg-gray-200"></div>
             
-            <div class="flex items-center gap-3 cursor-pointer group">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="window.location.href='{{ route('profile.edit') }}'">
                 <div class="text-right hidden sm:block">
-                    <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">{{ Auth::user()->name }}</p>
-                    <p class="text-xs text-gray-500">{{ Auth::user()->role === 'boss' ? 'Pengerusi' : 'Ahli Jawatankuasa' }}</p>
+                    <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-0.5 group-hover:text-blue-500 transition-colors">
+                        {{ Auth::user()->role === 'admin' ? 'Pentadbir' : (Auth::user()->role === 'boss' ? 'Pengerusi' : 'AJK') }}
+                    </p>
+                    <p class="text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors">{{ Auth::user()->name }}</p>
                 </div>
-                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center text-blue-600 font-bold border border-blue-200 shadow-sm">
-                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                </div>
+                <img src="{{ Auth::user()->profile_photo_url }}" 
+                     alt="{{ Auth::user()->name }}" 
+                     class="w-10 h-10 rounded-xl object-cover border-2 border-white shadow-sm group-hover:border-blue-100 transition-all">
             </div>
         </div>
     </div>
