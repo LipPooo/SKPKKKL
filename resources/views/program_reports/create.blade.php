@@ -88,15 +88,46 @@
                 </div>
             </div>
 
-            <div>
+            <div x-data="{ imageUrl: null, fileName: null, isPdf: false }">
                 <label class="block text-sm font-bold text-gray-700 mb-1.5">Bukti Gambar / Dokumen (JPG, PNG, PDF)</label>
-                <div class="mt-1 flex justify-center px-6 pt-10 pb-10 border-2 border-gray-200 border-dashed rounded-2xl hover:border-blue-400 transition-colors bg-gray-50/30">
+                
+                <!-- Preview Area -->
+                <template x-if="imageUrl">
+                    <div class="mb-4 relative group">
+                        <template x-if="!isPdf">
+                            <img :src="imageUrl" class="w-full max-h-64 object-cover rounded-2xl border border-gray-200 shadow-sm">
+                        </template>
+                        <template x-if="isPdf">
+                            <div class="flex items-center gap-3 p-4 bg-blue-50 rounded-xl border border-blue-100 text-blue-700">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6l-4-4H9z"></path><path d="M10 2v4a1 1 0 001 1h4"></path></svg>
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider">Dokumen PDF Dipilih</p>
+                                    <p class="text-[10px] opacity-75" x-text="fileName"></p>
+                                </div>
+                            </div>
+                        </template>
+                        <button type="button" @click="imageUrl = null; fileName = null; $refs.fileInput.value = ''" 
+                                class="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                </template>
+
+                <div x-show="!imageUrl" class="mt-1 flex justify-center px-6 pt-10 pb-10 border-2 border-gray-200 border-dashed rounded-2xl hover:border-blue-400 transition-colors bg-gray-50/30">
                     <div class="space-y-1 text-center">
                         <svg class="mx-auto h-12 w-12 text-gray-300" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         <div class="flex text-sm text-gray-600 justify-center">
                             <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-bold text-blue-600 hover:text-blue-500 focus-within:outline-none">
                                 <span>Muat naik fail</span>
-                                <input id="file-upload" name="image_proof" type="file" class="sr-only" required>
+                                <input id="file-upload" name="image_proof" type="file" x-ref="fileInput" class="sr-only" required
+                                    @change="
+                                        const file = $event.target.files[0];
+                                        if (file) {
+                                            fileName = file.name;
+                                            isPdf = file.type === 'application/pdf';
+                                            imageUrl = URL.createObjectURL(file);
+                                        }
+                                    ">
                             </label>
                             <p class="pl-1">atau tarik dan letak</p>
                         </div>
