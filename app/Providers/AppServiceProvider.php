@@ -19,8 +19,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (config('app.env') === 'production') {
+        if (config('app.env') === 'production' || env('RAILWAY_ENVIRONMENT')) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
+            
+            // Force session cookie to be secure
+            config(['session.secure' => true]);
         }
     }
 }
