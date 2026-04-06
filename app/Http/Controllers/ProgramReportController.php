@@ -12,6 +12,8 @@ use App\Notifications\NewFundRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
+use Illuminate\Support\Facades\Storage;
+
 class ProgramReportController extends Controller
 {
     public function index()
@@ -86,6 +88,25 @@ class ProgramReportController extends Controller
     {
         $report = ProgramReport::findOrFail($id);
         return view('program_reports.show', compact('report'));
+    }
+
+    public function destroy($id)
+    {
+        $report = ProgramReport::findOrFail($id);
+
+        // Delete associated prove file
+        if ($report->image_proof_path) {
+            Storage::disk('public')->delete($report->image_proof_path);
+        }
+
+        // Delete the report (Cascade should handle FundRequest if configured, but let's be explicit if not)
+        if ($report->fundRequest) {
+            $report->fundRequest()->delete();
+        }
+
+        $report->delete();
+
+        return redirect()->route('program-reports.index')->with('success', 'Laporan Program telah berjaya dipadam.');
     }
 
     public function print($id)

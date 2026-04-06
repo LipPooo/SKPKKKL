@@ -53,10 +53,19 @@
                         <td class="px-6 py-4 text-gray-600">
                             {{ $report->payment_details ?? '-' }}
                         </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="{{ route('program-reports.show', $report->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-medium transition-colors">
+                        <td class="px-6 py-4 text-right space-x-2">
+                            <a href="{{ route('program-reports.show', $report->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-medium transition-colors text-xs uppercase tracking-wider">
                                 Butiran
                             </a>
+                            @if(Auth::user()->isAdmin() || Auth::id() === $report->user_id)
+                                <form action="{{ route('program-reports.destroy', $report->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti mahu memadam laporan ini? Permohonan dana berkaitan juga akan dipadam.')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                                        Padam
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                     @empty

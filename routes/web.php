@@ -52,5 +52,6 @@ Route::middleware('auth')->group(function () {
     // Profile Settings
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/photo', [ProfileController::class, 'destroyPhoto'])->name('profile.photo.destroy');
     Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password.update');
 });

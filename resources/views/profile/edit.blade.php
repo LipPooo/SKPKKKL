@@ -27,8 +27,21 @@
                     </div>
                     <div class="text-center sm:text-left space-y-1">
                         <p class="text-sm font-bold text-gray-900">Gambar Profil</p>
-                        <p class="text-[10px] text-gray-500 font-medium leading-relaxed">Klik pada gambar untuk menukar. <br> Format JPG, PNG (Max. 1MB)</p>
+                        <p class="text-[10px] text-gray-500 font-medium leading-relaxed">Klik pada gambar untuk menukar. <br> Format JPG, PNG (Max. 10MB)</p>
                         @error('profile_photo') <p class="text-red-500 text-[10px] mt-1 font-bold">{{ $message }}</p> @enderror
+                        
+                        @if(Auth::user()->profile_photo_path)
+                            <div class="mt-2 text-left">
+                                <form action="{{ route('profile.photo.destroy') }}" method="POST" onsubmit="return confirm('Padam gambar profil anda?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-700 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        Padam Gambar
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
