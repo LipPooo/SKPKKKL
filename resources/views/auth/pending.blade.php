@@ -9,14 +9,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .login-bg {
-            background-image: url('{{ asset('images/background.jpg') }}');
-            background-size: cover;
+            background-color: #800020;
+            background-image: url('{{ asset('images/KELAB KILAT.jpeg') }}');
+            background-size: 500px;
             background-position: center;
-            background-repeat: no-repeat;
+            background-repeat: repeat;
+            background-attachment: fixed;
         }
         .login-overlay {
-            background: rgba(249, 250, 251, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(128, 0, 32, 0.94);
         }
     </style>
 </head>
