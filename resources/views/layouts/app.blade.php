@@ -49,5 +49,193 @@
     </div>
 
     @stack('scripts')
+
+    {{-- ===================== LIVE NOTIFICATION SYSTEM ===================== --}}
+    @auth
+    <div id="toast-container" style="position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column-reverse; gap:12px; pointer-events:none;"></div>
+
+    <style>
+        .live-toast {
+            pointer-events: all;
+            min-width: 320px;
+            max-width: 380px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px -10px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            animation: toastSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            border-left: 4px solid #3b82f6;
+        }
+        .live-toast.removing {
+            animation: toastSlideOut 0.3s ease-in forwards;
+        }
+        .live-toast-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #eff6ff;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .live-toast-body { flex: 1; min-width: 0; }
+        .live-toast-title { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 3px; }
+        .live-toast-msg { font-size: 12px; color: #64748b; line-height: 1.5; margin-bottom: 8px; word-break: break-word; }
+        .live-toast-footer { display: flex; align-items: center; gap: 8px; }
+        .live-toast-time { font-size: 10px; color: #94a3b8; }
+        .live-toast-link {
+            font-size: 11px; font-weight: 600; color: #3b82f6;
+            text-decoration: none; background: #eff6ff;
+            padding: 3px 10px; border-radius: 20px;
+            transition: background 0.2s;
+        }
+        .live-toast-link:hover { background: #dbeafe; }
+        .live-toast-close {
+            background: none; border: none; cursor: pointer;
+            color: #94a3b8; padding: 2px; line-height: 1;
+            align-self: flex-start; flex-shrink: 0;
+            transition: color 0.2s;
+        }
+        .live-toast-close:hover { color: #475569; }
+        @keyframes toastSlideIn {
+            from { opacity: 0; transform: translateX(60px) scale(0.95); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes toastSlideOut {
+            from { opacity: 1; transform: translateX(0) scale(1); }
+            to   { opacity: 0; transform: translateX(60px) scale(0.95); }
+        }
+    </style>
+
+    <script>
+    (function () {
+        const POLL_INTERVAL = 15000; // 15 saat
+        const POLL_URL      = '{{ route("notifications.poll") }}';
+        const CSRF_TOKEN    = '{{ csrf_token() }}';
+
+        let lastKnownId = null;
+        let isFirstPoll  = true;
+
+        function updateBadge(count) {
+            const badge = document.getElementById('notif-badge');
+            if (!badge) return;
+            if (count > 0) {
+                badge.textContent = count > 9 ? '9+' : count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function showToast(notif) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'live-toast';
+            toast.innerHTML = `
+                <div class="live-toast-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                </div>
+                <div class="live-toast-body">
+                    <p class="live-toast-title">${escHtml(notif.title)}</p>
+                    <p class="live-toast-msg">${escHtml(notif.message)}</p>
+                    <div class="live-toast-footer">
+                        <span class="live-toast-time">${escHtml(notif.time)}</span>
+                        <a href="${escHtml(notif.url)}" class="live-toast-link">Lihat →</a>
+                    </div>
+                </div>
+                <button class="live-toast-close" aria-label="Tutup">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            `;
+
+            // Close button
+            toast.querySelector('.live-toast-close').addEventListener('click', () => dismissToast(toast));
+
+            container.appendChild(toast);
+
+            // Auto-dismiss after 8 saat
+            setTimeout(() => dismissToast(toast), 8000);
+        }
+
+        function dismissToast(toast) {
+            if (!toast.parentNode) return;
+            toast.classList.add('removing');
+            setTimeout(() => toast.remove(), 300);
+        }
+
+        function escHtml(str) {
+            const d = document.createElement('div');
+            d.appendChild(document.createTextNode(str));
+            return d.innerHTML;
+        }
+
+        async function poll() {
+            try {
+                let url = POLL_URL;
+                if (lastKnownId) {
+                    url += '?last_id=' + encodeURIComponent(lastKnownId);
+                }
+
+                const response = await fetch(url, {
+                    headers: {
+                        'X-CSRF-TOKEN': CSRF_TOKEN,
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    credentials: 'same-origin',
+                });
+
+                if (!response.ok) return;
+
+                const data = await response.json();
+
+                // Update badge
+                updateBadge(data.unread_count);
+
+                // Update last known ID
+                if (data.latest_id) {
+                    const isNew = lastKnownId && data.latest_id !== lastKnownId;
+
+                    // Show toasts only after first poll (supaya tak spam bila baru load page)
+                    if (!isFirstPoll && data.new_notifications && data.new_notifications.length > 0) {
+                        // Show max 3 toasts serentak
+                        data.new_notifications.slice(0, 3).forEach(notif => showToast(notif));
+                    }
+
+                    lastKnownId = data.latest_id;
+                }
+
+                isFirstPoll = false;
+
+            } catch (err) {
+                // Senyap je — mungkin user offline atau sesi tamat
+            }
+        }
+
+        // Mula polling selepas halaman siap load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Poll pertama selepas 2 saat (bagi page siap load)
+            setTimeout(function() {
+                poll();
+                // Kemudian polling setiap 15 saat
+                setInterval(poll, POLL_INTERVAL);
+            }, 2000);
+        });
+    })();
+    </script>
+    @endauth
+    {{-- ====================================================================== --}}
 </body>
 </html>

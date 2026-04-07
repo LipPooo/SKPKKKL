@@ -70,4 +70,44 @@ class DashboardController extends Controller
 
         return back();
     }
+
+    public function pollNotifications(Request $request)
+    {
+        $user = Auth::user();
+        $lastId = $request->query('last_id', null);
+
+        // Get unread count
+        $unreadCount = $user->unreadNotifications()->count();
+
+        // Get new notifications since last_id
+        $query = $user->unreadNotifications()->latest();
+
+        if ($lastId) {
+            // Only return notifications newer than the last known one
+            $query->where('id', '>', $lastId);
+        } else {
+            // First poll — return latest 5 unread
+            $query->take(5);
+        }
+
+        $newNotifications = $query->get()->map(function ($n) {
+            return [
+                'id'      => $n->id,
+                'title'   => $n->data['title'] ?? 'Notifikasi',
+                'message' => $n->data['message'] ?? '',
+                'url'     => $n->data['url'] ?? '#',
+                'time'    => $n->created_at->diffForHumans(),
+                'type'    => $n->data['type'] ?? 'info',
+            ];
+        });
+
+        // Latest notification id to use as next last_id
+        $latestId = $user->notifications()->latest()->value('id');
+
+        return response()->json([
+            'unread_count'      => $unreadCount,
+            'new_notifications' => $newNotifications,
+            'latest_id'         => $latestId,
+        ]);
+    }
 }

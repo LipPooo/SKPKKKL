@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
 
     // Notifications
     Route::post('notifications/mark-as-read', [App\Http\Controllers\DashboardController::class, 'markNotificationsAsRead'])->name('notifications.mark-as-read');
+    Route::get('notifications/poll', [App\Http\Controllers\DashboardController::class, 'pollNotifications'])->name('notifications.poll');
     Route::get('notifications/{id}/read', [App\Http\Controllers\DashboardController::class, 'markNotificationAsRead'])->name('notifications.read');
 
     // Profile Settings

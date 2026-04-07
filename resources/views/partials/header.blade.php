@@ -10,13 +10,11 @@
         <div class="flex items-center gap-5">
             <!-- Notifications -->
             <div class="relative" x-data="{ open: false }">
-                <button @click="open = !open" class="text-gray-400 hover:text-blue-600 transition-colors relative p-2 rounded-xl hover:bg-gray-50">
+                <button id="notif-bell-btn" @click="open = !open" class="text-gray-400 hover:text-blue-600 transition-colors relative p-2 rounded-xl hover:bg-gray-50">
                     @php $unreadCount = Auth::user()->unreadNotifications->count(); @endphp
-                    @if($unreadCount > 0)
-                        <span class="absolute top-1.5 right-1.5 w-4 h-4 bg-red-500 rounded-full border-2 border-white text-[10px] text-white flex items-center justify-center font-bold">
-                            {{ $unreadCount > 9 ? '9+' : $unreadCount }}
-                        </span>
-                    @endif
+                    <span id="notif-badge" class="absolute top-1.5 right-1.5 w-4 h-4 bg-red-500 rounded-full border-2 border-white text-[10px] text-white flex items-center justify-center font-bold {{ $unreadCount > 0 ? '' : 'hidden' }}">
+                        {{ $unreadCount > 9 ? '9+' : $unreadCount }}
+                    </span>
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                 </button>
 
