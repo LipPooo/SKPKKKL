@@ -118,8 +118,10 @@
         const POLL_URL      = '{{ route("notifications.poll") }}';
         const CSRF_TOKEN    = '{{ csrf_token() }}';
 
-        let lastKnownId = null;
-        let isFirstPoll  = true;
+        // Simpan timestamp bagi poll terakhir
+        // Poll pertama: hantar tiada 'since' → server balas dengan masa sekarang
+        // Poll seterusnya: hantar 'since' = masa server dari poll sebelum
+        let lastSince = null;
 
         function updateBadge(count) {
             const badge = document.getElementById('notif-badge');
@@ -150,7 +152,7 @@
                     <p class="live-toast-msg">${escHtml(notif.message)}</p>
                     <div class="live-toast-footer">
                         <span class="live-toast-time">${escHtml(notif.time)}</span>
-                        <a href="${escHtml(notif.url)}" class="live-toast-link">Lihat →</a>
+                        <a href="${escHtml(notif.url)}" class="live-toast-link">Lihat &rarr;</a>
                     </div>
                 </div>
                 <button class="live-toast-close" aria-label="Tutup">
@@ -160,12 +162,10 @@
                 </button>
             `;
 
-            // Close button
             toast.querySelector('.live-toast-close').addEventListener('click', () => dismissToast(toast));
-
             container.appendChild(toast);
 
-            // Auto-dismiss after 8 saat
+            // Auto-dismiss selepas 8 saat
             setTimeout(() => dismissToast(toast), 8000);
         }
 
@@ -177,15 +177,15 @@
 
         function escHtml(str) {
             const d = document.createElement('div');
-            d.appendChild(document.createTextNode(str));
+            d.appendChild(document.createTextNode(String(str)));
             return d.innerHTML;
         }
 
         async function poll() {
             try {
                 let url = POLL_URL;
-                if (lastKnownId) {
-                    url += '?last_id=' + encodeURIComponent(lastKnownId);
+                if (lastSince) {
+                    url += '?since=' + encodeURIComponent(lastSince);
                 }
 
                 const response = await fetch(url, {
@@ -201,37 +201,33 @@
 
                 const data = await response.json();
 
-                // Update badge
+                // Kemas kini badge
                 updateBadge(data.unread_count);
 
-                // Update last known ID
-                if (data.latest_id) {
-                    const isNew = lastKnownId && data.latest_id !== lastKnownId;
-
-                    // Show toasts only after first poll (supaya tak spam bila baru load page)
-                    if (!isFirstPoll && data.new_notifications && data.new_notifications.length > 0) {
-                        // Show max 3 toasts serentak
-                        data.new_notifications.slice(0, 3).forEach(notif => showToast(notif));
-                    }
-
-                    lastKnownId = data.latest_id;
+                // Tunjuk toast untuk setiap notifikasi baru (hanya jika bukan poll pertama)
+                if (lastSince && data.new_notifications && data.new_notifications.length > 0) {
+                    data.new_notifications.slice(0, 3).forEach(notif => showToast(notif));
                 }
 
-                isFirstPoll = false;
+                // Simpan masa server untuk poll seterusnya
+                if (data.server_time) {
+                    lastSince = data.server_time;
+                }
 
             } catch (err) {
-                // Senyap je — mungkin user offline atau sesi tamat
+                // Senyap — mungkin user offline atau sesi tamat
+                console.warn('[Notif Poll]', err);
             }
         }
 
-        // Mula polling selepas halaman siap load
         document.addEventListener('DOMContentLoaded', function () {
-            // Poll pertama selepas 2 saat (bagi page siap load)
-            setTimeout(function() {
-                poll();
-                // Kemudian polling setiap 15 saat
-                setInterval(poll, POLL_INTERVAL);
-            }, 2000);
+            // Poll pertama selepas 1 saat (ambil baseline masa)
+            setTimeout(function () {
+                poll().then(function () {
+                    // Selepas poll pertama siap, mula interval setiap 15 saat
+                    setInterval(poll, POLL_INTERVAL);
+                });
+            }, 1000);
         });
     })();
     </script>

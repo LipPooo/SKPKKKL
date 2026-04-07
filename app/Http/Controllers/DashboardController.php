@@ -74,40 +74,42 @@ class DashboardController extends Controller
     public function pollNotifications(Request $request)
     {
         $user = Auth::user();
-        $lastId = $request->query('last_id', null);
+
+        // Client hantar timestamp bila ia mula-mula load page
+        // Server akan cari notification yang dicipta SELEPAS timestamp itu
+        $since = $request->query('since', null);
 
         // Get unread count
         $unreadCount = $user->unreadNotifications()->count();
 
-        // Get new notifications since last_id
-        $query = $user->unreadNotifications()->latest();
+        $newNotifications = collect();
 
-        if ($lastId) {
-            // Only return notifications newer than the last known one
-            $query->where('id', '>', $lastId);
-        } else {
-            // First poll — return latest 5 unread
-            $query->take(5);
+        if ($since) {
+            // Cari unread notifications yang dicipta selepas timestamp 'since'
+            $newNotifications = $user->unreadNotifications()
+                ->where('created_at', '>', $since)
+                ->latest()
+                ->take(10)
+                ->get()
+                ->map(function ($n) {
+                    return [
+                        'id'      => $n->id,
+                        'title'   => $n->data['title'] ?? 'Notifikasi',
+                        'message' => $n->data['message'] ?? '',
+                        'url'     => $n->data['url'] ?? '#',
+                        'time'    => $n->created_at->diffForHumans(),
+                        'type'    => $n->data['type'] ?? 'info',
+                    ];
+                });
         }
 
-        $newNotifications = $query->get()->map(function ($n) {
-            return [
-                'id'      => $n->id,
-                'title'   => $n->data['title'] ?? 'Notifikasi',
-                'message' => $n->data['message'] ?? '',
-                'url'     => $n->data['url'] ?? '#',
-                'time'    => $n->created_at->diffForHumans(),
-                'type'    => $n->data['type'] ?? 'info',
-            ];
-        });
-
-        // Latest notification id to use as next last_id
-        $latestId = $user->notifications()->latest()->value('id');
+        // Masa server sekarang — client simpan ini untuk poll seterusnya
+        $serverTime = now()->toISOString();
 
         return response()->json([
             'unread_count'      => $unreadCount,
             'new_notifications' => $newNotifications,
-            'latest_id'         => $latestId,
+            'server_time'       => $serverTime,
         ]);
     }
 }
