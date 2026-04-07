@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .login-bg {
-            background-color: #800020;
+            background-color: #9f1239;
             background-image: url('{{ asset('images/KELAB KILAT.jpeg') }}');
             background-size: 500px;
             background-position: center;
@@ -17,7 +17,7 @@
             background-attachment: fixed;
         }
         .login-overlay {
-            background: rgba(128, 0, 32, 0.94);
+            background: rgba(159, 18, 57, 0.86);
         }
     </style>
 </head>
