@@ -37,7 +37,7 @@
                             <td class="px-6 py-4 text-gray-600">{{ $user->email }}</td>
                             <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
                             <td class="px-6 py-4 text-right space-x-2">
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
                                     Kemaskini
                                 </a>
                                 <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="inline">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-blue-50 text-blue-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-blue-100 shadow-sm active:scale-95 transition-all">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-rose-50 text-rose-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-rose-100 shadow-sm active:scale-95 transition-all">
                             Kemaskini
                         </a>
                         <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="flex-1">
@@ -139,13 +139,13 @@
                             <td class="px-6 py-4 text-gray-600 font-mono">{{ $user->employee_id }}</td>
                             <td class="px-6 py-4 text-gray-600">{{ $user->email }}</td>
                             <td class="px-6 py-4 text-gray-600 capitalize">
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $user->role === 'boss' ? 'bg-purple-50 text-purple-600 border border-purple-100' : 'bg-blue-50 text-blue-600 border border-blue-100' }}">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $user->role === 'boss' ? 'bg-purple-50 text-purple-600 border border-purple-100' : 'bg-rose-50 text-rose-600 border border-rose-100' }}">
                                     {{ $user->role === 'boss' ? 'Pengerusi' : 'Ahli Jawatankuasa' }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
                             <td class="px-6 py-4 text-right flex justify-end gap-2">
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider text-right">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider text-right">
                                     Kemaskini
                                 </a>
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?')">
@@ -170,7 +170,7 @@
                         <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-12 h-12 rounded-xl object-cover border border-gray-100 shadow-sm">
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center gap-2 mb-1.5">
-                                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $user->role === 'boss' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $user->role === 'boss' ? 'bg-purple-100 text-purple-700' : 'bg-rose-100 text-rose-700' }}">
                                     {{ $user->role === 'boss' ? 'Pengerusi' : 'AJK' }}
                                 </span>
                             </div>
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-blue-50 text-blue-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-blue-100 shadow-sm active:scale-95 transition-all">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-rose-50 text-rose-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-rose-100 shadow-sm active:scale-95 transition-all">
                             Kemaskini
                         </a>
                         <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="flex-1" onsubmit="return confirm('Adakah anda pasti?')">

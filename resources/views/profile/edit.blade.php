@@ -19,7 +19,7 @@
                 <!-- Profile Photo Section -->
                 <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-gray-50">
                     <div class="relative group">
-                        <img :src="imageUrl" alt="Profile" class="w-24 h-24 rounded-2xl object-cover border-4 border-gray-50 shadow-sm transition-all group-hover:border-blue-100">
+                        <img :src="imageUrl" alt="Profile" class="w-24 h-24 rounded-2xl object-cover border-4 border-gray-50 shadow-sm transition-all group-hover:border-rose-100">
                         <label for="profile_photo" class="absolute inset-0 flex items-center justify-center bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         </label>
@@ -45,20 +45,20 @@
                     <div>
                         <label for="name" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Penuh</label>
                         <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                         @error('name') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                     </div>
                     
                     <div>
                         <label for="email" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Alamat Emel</label>
                         <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                         @error('email') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
 
                 <div class="flex justify-end pt-4">
-                    <button type="submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 text-xs uppercase tracking-wider">
+                    <button type="submit" class="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-rose-600/20 text-xs uppercase tracking-wider">
                         Simpan Perubahan
                     </button>
                 </div>
@@ -81,21 +81,21 @@
                     <div>
                         <label for="current_password" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kata Laluan Semasa</label>
                         <input type="password" name="current_password" id="current_password" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                         @error('current_password') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                     </div>
                     
                     <div>
                         <label for="password" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kata Laluan Baru</label>
                         <input type="password" name="password" id="password" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                         @error('password') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label for="password_confirmation" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Sahkan Kata Laluan Baru</label>
                         <input type="password" name="password_confirmation" id="password_confirmation" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                     </div>
                 </div>
 

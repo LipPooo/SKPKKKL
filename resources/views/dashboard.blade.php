@@ -17,7 +17,7 @@
                 @endif
             </p>
         </div>
-        <a href="{{ route('program-reports.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-blue-600/20 flex items-center gap-2">
+        <a href="{{ route('program-reports.create') }}" class="bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-rose-600/20 flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             Permohonan Baru
         </a>
@@ -28,7 +28,7 @@
         <!-- Card 1 -->
         <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
             <div class="relative z-10">
-                <div class="w-12 h-12 rounded-xl bg-blue-50/80 text-blue-600 flex items-center justify-center mb-4 border border-blue-100/50">
+                <div class="w-12 h-12 rounded-xl bg-rose-50/80 text-rose-600 flex items-center justify-center mb-4 border border-rose-100/50">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 </div>
                 <p class="text-sm font-medium text-gray-500 mb-1">Jumlah Keseluruhan</p>
@@ -88,7 +88,7 @@
             <h3 class="text-lg font-semibold text-gray-800">
                 {{ $user->role === 'boss' ? 'Permohonan Memerlukan Tindakan' : 'Senarai Permohonan Saya' }}
             </h3>
-            <a href="{{ route('fund-requests.index') }}" class="text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg transition-colors">Lihat Semua</a>
+            <a href="{{ route('fund-requests.index') }}" class="text-sm font-medium text-rose-600 hover:text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg transition-colors">Lihat Semua</a>
         </div>
         
         <div class="overflow-x-auto">
@@ -120,7 +120,7 @@
                         <td class="px-6 py-4 text-gray-600">{{ $request->created_at->format('d M Y') }}</td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-2">
-                                <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">
+                                <div class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xs font-bold">
                                     {{ strtoupper(substr($request->requester->name, 0, 1)) }}
                                 </div>
                                 <span class="text-gray-700 font-medium">{{ $request->requester->name }}</span>
@@ -147,7 +147,7 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ route('fund-requests.show', $request->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-medium transition-colors opacity-0 group-hover:opacity-100">Semak</a>
+                            <a href="{{ route('fund-requests.show', $request->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-medium transition-colors opacity-0 group-hover:opacity-100">Semak</a>
                         </td>
                     </tr>
                     @empty

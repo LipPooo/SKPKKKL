@@ -87,7 +87,7 @@
                     </label>
                     <div class="mt-1.5">
                         <input id="email" name="email" type="email" autocomplete="email" required value="{{ old('email') }}"
-                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm bg-gray-50/50 transition-colors">
+                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm bg-gray-50/50 transition-colors">
                     </div>
                 </div>
 
@@ -97,21 +97,21 @@
                     </label>
                     <div class="mt-1.5">
                         <input id="password" name="password" type="password" autocomplete="current-password" required
-                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm bg-gray-50/50 transition-colors">
+                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm bg-gray-50/50 transition-colors">
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <input id="remember-me" name="remember" type="checkbox"
-                            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            class="h-4 w-4 rounded border-gray-300 text-rose-600 focus:ring-rose-500">
                         <label for="remember-me" class="ml-2 block text-sm text-gray-700">
                             Ingat saya
                         </label>
                     </div>
 
                     <div class="text-sm">
-                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+                        <a href="#" class="font-medium text-rose-600 hover:text-rose-500 transition-colors">
                             Lupa kata laluan?
                         </a>
                     </div>
@@ -119,7 +119,7 @@
 
                 <div>
                     <button type="submit"
-                        class="flex w-full justify-center rounded-xl border border-transparent bg-blue-600 py-3 px-4 text-sm font-medium text-white shadow-sm shadow-blue-600/20 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all">
+                        class="flex w-full justify-center rounded-xl border border-transparent bg-rose-600 py-3 px-4 text-sm font-medium text-white shadow-sm shadow-rose-600/20 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 transition-all">
                         Log Masuk
                     </button>
                 </div>
@@ -128,7 +128,7 @@
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">
                     Belum mempunyai akaun? 
-                    <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+                    <a href="{{ route('register') }}" class="font-medium text-rose-600 hover:text-rose-500 transition-colors">
                         Buat akaun baharu
                     </a>
                 </p>

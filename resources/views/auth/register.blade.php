@@ -55,7 +55,7 @@
                 <img src="{{ asset('images/KELAB KILAT.jpeg') }}" alt="Logo Kelab Kilat" class="max-h-full max-w-full object-contain">
             </div>
             <div class="flex items-center px-6">
-                <span class="text-4xl font-bold tracking-tight text-blue-600">SKPKKKL<span class="text-gray-400">.</span></span>
+                <span class="text-4xl font-bold tracking-tight text-rose-600">SKPKKKL<span class="text-gray-400">.</span></span>
             </div>
         </div>
         <h2 class="mt-4 text-center text-2xl font-bold tracking-tight text-gray-900">
@@ -88,7 +88,7 @@
                     </label>
                     <div class="mt-1.5">
                         <input id="name" name="name" type="text" required value="{{ old('name') }}"
-                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm bg-gray-50/50 transition-colors">
+                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm bg-gray-50/50 transition-colors">
                     </div>
                 </div>
 
@@ -99,7 +99,7 @@
                         </label>
                         <div class="mt-1.5">
                             <input id="employee_id" name="employee_id" type="text" required value="{{ old('employee_id') }}"
-                                class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm bg-gray-50/50 transition-colors">
+                                class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm bg-gray-50/50 transition-colors">
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@
                     </label>
                     <div class="mt-1.5">
                         <input id="email" name="email" type="email" autocomplete="email" required value="{{ old('email') }}"
-                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm bg-gray-50/50 transition-colors">
+                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm bg-gray-50/50 transition-colors">
                     </div>
                 </div>
 
@@ -121,7 +121,7 @@
                     </label>
                     <div class="mt-1.5">
                         <input id="password" name="password" type="password" required
-                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm bg-gray-50/50 transition-colors">
+                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm bg-gray-50/50 transition-colors">
                     </div>
                 </div>
 
@@ -131,13 +131,13 @@
                     </label>
                     <div class="mt-1.5">
                         <input id="password_confirmation" name="password_confirmation" type="password" required
-                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm bg-gray-50/50 transition-colors">
+                            class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm bg-gray-50/50 transition-colors">
                     </div>
                 </div>
 
                 <div>
                     <button type="submit"
-                        class="flex w-full justify-center rounded-xl border border-transparent bg-blue-600 py-3 px-4 text-sm font-medium text-white shadow-sm shadow-blue-600/20 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all">
+                        class="flex w-full justify-center rounded-xl border border-transparent bg-rose-600 py-3 px-4 text-sm font-medium text-white shadow-sm shadow-rose-600/20 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 transition-all">
                         Daftar Akaun
                     </button>
                 </div>
@@ -146,7 +146,7 @@
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">
                     Sudah mempunyai akaun? 
-                    <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+                    <a href="{{ route('login') }}" class="font-medium text-rose-600 hover:text-rose-500 transition-colors">
                         Log masuk di sini
                     </a>
                 </p>

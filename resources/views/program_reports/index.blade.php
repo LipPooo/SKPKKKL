@@ -41,7 +41,7 @@
                                 {{ $report->location }}
                             </td>
                             <td class="px-6 py-4">
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $report->type === 'sukan' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-purple-50 text-purple-600 border border-purple-100' }}">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $report->type === 'sukan' ? 'bg-rose-50 text-rose-600 border border-rose-100' : 'bg-purple-50 text-purple-600 border border-purple-100' }}">
                                     {{ $report->type }}
                                 </span>
                             </td>
@@ -55,7 +55,7 @@
                                 {{ $report->payment_details ?? '-' }}
                             </td>
                             <td class="px-6 py-4 text-right space-x-2">
-                                <a href="{{ route('program-reports.show', $report->id) }}" class="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                                <a href="{{ route('program-reports.show', $report->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
                                     Butiran
                                 </a>
                                 @if(Auth::user()->isAdmin() || Auth::id() === $report->user_id)
@@ -85,7 +85,7 @@
                     <div class="flex justify-between items-start gap-4">
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center gap-2 mb-2">
-                                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $report->type === 'sukan' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $report->type === 'sukan' ? 'bg-rose-100 text-rose-700' : 'bg-purple-100 text-purple-700' }}">
                                     {{ $report->type }}
                                 </span>
                                 <span class="text-[10px] text-gray-400 font-medium tracking-tight">{{ $report->date->format('d/m/Y') }}</span>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="text-right">
                             <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-0.5">Bajet</p>
-                            <p class="font-bold text-blue-600 text-sm">RM {{ number_format($report->budget, 2) }}</p>
+                            <p class="font-bold text-rose-600 text-sm">RM {{ number_format($report->budget, 2) }}</p>
                         </div>
                     </div>
                     
@@ -140,7 +140,7 @@
 
 <!-- Floating Print All Button -->
 <div class="fixed bottom-8 right-8 z-30">
-    <a href="{{ route('program-reports.print-all') }}" target="_blank" class="flex items-center gap-1.5 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg shadow-blue-600/20 transition-all font-bold text-xs uppercase tracking-wider">
+    <a href="{{ route('program-reports.print-all') }}" target="_blank" class="flex items-center gap-1.5 px-3 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-lg shadow-rose-600/20 transition-all font-bold text-xs uppercase tracking-wider">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
         Cetak
     </a>

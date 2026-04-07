@@ -51,7 +51,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-gray-400 uppercase font-bold mb-1">Bajet Dipohon</p>
-                        <p class="text-lg font-bold text-blue-600">RM {{ number_format($fundRequest->programReport->budget, 2) }}</p>
+                        <p class="text-lg font-bold text-rose-600">RM {{ number_format($fundRequest->programReport->budget, 2) }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-400 uppercase font-bold mb-1">Penganjur</p>
@@ -82,10 +82,10 @@
                 <div class="space-y-4 mb-6">
                     <div class="flex justify-between text-sm mb-1">
                         <span class="text-gray-500">Sokongan Ahli Jawatankuasa</span>
-                        <span class="font-bold text-blue-600">{{ $fundRequest->total_member_approvals }}/18</span>
+                        <span class="font-bold text-rose-600">{{ $fundRequest->total_member_approvals }}/18</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-2">
-                        <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: {{ min(100, ($fundRequest->total_member_approvals / 18) * 100) }}%"></div>
+                        <div class="bg-rose-600 h-2 rounded-full transition-all duration-500" style="width: {{ min(100, ($fundRequest->total_member_approvals / 18) * 100) }}%"></div>
                     </div>
                 </div>
 
@@ -124,7 +124,7 @@
                             <p class="text-sm text-center text-emerald-600 py-4 bg-emerald-50 rounded-xl font-bold">Anda telah maklum balas.</p>
                             @endif
                         @else
-                            <p class="text-sm text-center text-blue-600 py-4 bg-blue-50 rounded-xl font-bold italic">Permohonan anda sendiri.</p>
+                            <p class="text-sm text-center text-rose-600 py-4 bg-rose-50 rounded-xl font-bold italic">Permohonan anda sendiri.</p>
                         @endif
                     @endif
                 @else
@@ -202,14 +202,14 @@
                         <textarea name="reason" rows="4" :required="isRequired" 
                             :placeholder="isRequired ? 'Sila nyatakan sebab...' : 'Masukkan nota tambahan (pilihan)...'" 
                             class="block w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm bg-gray-50/50 resize-none"
-                            :class="modalColor === 'red' ? 'focus:border-red-500 focus:ring-red-500' : (modalColor === 'emerald' ? 'focus:border-emerald-500 focus:ring-emerald-500' : 'focus:border-blue-500 focus:ring-blue-500')"></textarea>
+                            :class="modalColor === 'red' ? 'focus:border-red-500 focus:ring-red-500' : (modalColor === 'emerald' ? 'focus:border-emerald-500 focus:ring-emerald-500' : 'focus:border-rose-500 focus:ring-rose-500')"></textarea>
                     </div>
                     
                     <div class="flex gap-3">
                         <button type="button" @click="showModal = false" class="flex-1 px-6 py-3 rounded-xl text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors">Batal</button>
                         <button type="submit" 
                             class="flex-1 px-6 py-3 rounded-xl text-sm font-bold text-white transition-colors shadow-sm"
-                            :class="modalColor === 'red' ? 'bg-red-600 hover:bg-red-700 shadow-red-600/20' : (modalColor === 'emerald' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20' : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/20')">
+                            :class="modalColor === 'red' ? 'bg-red-600 hover:bg-red-700 shadow-red-600/20' : (modalColor === 'emerald' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20' : 'bg-rose-600 hover:bg-rose-700 shadow-rose-600/20')">
                             Hantar
                         </button>
                     </div>

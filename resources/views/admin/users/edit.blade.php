@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-2xl mx-auto">
     <div class="mb-6">
-        <a href="{{ route('admin.users.index') }}" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600 transition-colors">
+        <a href="{{ route('admin.users.index') }}" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-rose-600 transition-colors">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             Kembali ke Senarai
         </a>
@@ -31,21 +31,21 @@
                     <div class="md:col-span-2">
                         <label for="name" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 text-left">Nama Penuh</label>
                         <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                         @error('name') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label for="employee_id" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 text-left">No Pekerja</label>
                         <input type="text" name="employee_id" id="employee_id" value="{{ old('employee_id', $user->employee_id) }}" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3 font-mono">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3 font-mono">
                         @error('employee_id') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label for="role" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 text-left">Peranan</label>
                         <select name="role" id="role" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                             <option value="member" {{ old('role', $user->role) === 'member' ? 'selected' : '' }}>Ahli Jawatankuasa (AJK)</option>
                             <option value="boss" {{ old('role', $user->role) === 'boss' ? 'selected' : '' }}>Pengerusi</option>
                         </select>
@@ -55,7 +55,7 @@
                     <div class="md:col-span-2">
                         <label for="email" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 text-left">Alamat Emel</label>
                         <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3">
+                            class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3">
                         @error('email') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                         <div>
                             <label for="password" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 text-left">Kata Laluan Baru</label>
                             <input type="password" name="password" id="password"
-                                class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3"
+                                class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3"
                                 placeholder="Min. 8 aksara">
                             @error('password') <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p> @enderror
                         </div>
@@ -78,14 +78,14 @@
                         <div>
                             <label for="password_confirmation" class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 text-left">Sahkan Kata Laluan</label>
                             <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="w-full rounded-xl border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 bg-gray-50/50 px-4 py-3"
+                                class="w-full rounded-xl border-gray-200 text-sm focus:border-rose-500 focus:ring-rose-500 bg-gray-50/50 px-4 py-3"
                                 placeholder="Ulang kata laluan">
                         </div>
                     </div>
                 </div>
 
                 <div class="flex justify-end pt-4">
-                    <button type="submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 text-xs uppercase tracking-wider">
+                    <button type="submit" class="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-rose-600/20 text-xs uppercase tracking-wider">
                         Simpan Perubahan
                     </button>
                 </div>
