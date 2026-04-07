@@ -56,7 +56,7 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ route('fund-requests.show', $request->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                            <a href="{{ route('fund-requests.show', $request->id) }}" class="text-sky-600 hover:bg-sky-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
                                 Papar
                             </a>
                         </td>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
 
-                <a href="{{ route('fund-requests.show', $request->id) }}" class="block w-full text-center bg-rose-600 text-white py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-rose-600/20 active:scale-95 transition-all">
+                <a href="{{ route('fund-requests.show', $request->id) }}" class="block w-full text-center bg-white border border-gray-200 text-sky-600 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-gray-50 active:scale-95 transition-all">
                     Papar Butiran
                 </a>
             </div>

@@ -88,7 +88,7 @@
             <h3 class="text-lg font-semibold text-gray-800">
                 {{ $user->role === 'boss' ? 'Permohonan Memerlukan Tindakan' : 'Senarai Permohonan Saya' }}
             </h3>
-            <a href="{{ route('fund-requests.index') }}" class="text-sm font-medium text-rose-600 hover:text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg transition-colors">Lihat Semua</a>
+            <a href="{{ route('fund-requests.index') }}" class="text-sm font-medium text-sky-600 hover:text-sky-700 bg-sky-50 px-3 py-1.5 rounded-lg transition-colors">Lihat Semua</a>
         </div>
         
         <div class="overflow-x-auto">
@@ -147,7 +147,7 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ route('fund-requests.show', $request->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-medium transition-colors opacity-0 group-hover:opacity-100">Semak</a>
+                            <a href="{{ route('fund-requests.show', $request->id) }}" class="text-sky-600 hover:bg-sky-50 px-3 py-1.5 rounded-lg font-medium transition-colors opacity-0 group-hover:opacity-100">Semak</a>
                         </td>
                     </tr>
                     @empty

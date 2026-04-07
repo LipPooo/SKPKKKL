@@ -37,7 +37,7 @@
                             <td class="px-6 py-4 text-gray-600">{{ $user->email }}</td>
                             <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
                             <td class="px-6 py-4 text-right space-x-2">
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-sky-600 hover:bg-sky-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
                                     Kemaskini
                                 </a>
                                 <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="inline">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-rose-50 text-rose-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-rose-100 shadow-sm active:scale-95 transition-all">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-sky-50 text-sky-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-sky-100 shadow-sm active:scale-95 transition-all">
                             Kemaskini
                         </a>
                         <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="flex-1">
@@ -145,7 +145,7 @@
                             </td>
                             <td class="px-6 py-4 text-gray-500 text-xs font-medium">{{ $user->created_at->format('d/m/Y, g:i A') }}</td>
                             <td class="px-6 py-4 text-right flex justify-end gap-2">
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider text-right">
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-sky-600 hover:bg-sky-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider text-right">
                                     Kemaskini
                                 </a>
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Adakah anda pasti?')">
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-rose-50 text-rose-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-rose-100 shadow-sm active:scale-95 transition-all">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="flex-1 bg-sky-50 text-sky-600 py-3 rounded-xl font-bold text-center text-[10px] uppercase tracking-widest border border-sky-100 shadow-sm active:scale-95 transition-all">
                             Kemaskini
                         </a>
                         <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="flex-1" onsubmit="return confirm('Adakah anda pasti?')">

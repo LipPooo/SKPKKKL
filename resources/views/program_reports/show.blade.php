@@ -116,7 +116,7 @@
                 </div>
             </div>
             @if($report->fundRequest)
-            <a href="{{ route('fund-requests.show', $report->fundRequest->id) }}" class="w-full sm:w-auto text-center px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-rose-600 hover:bg-rose-700 transition-all shadow-lg shadow-rose-600/20">
+            <a href="{{ route('fund-requests.show', $report->fundRequest->id) }}" class="w-full sm:w-auto text-center px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-sky-600 hover:bg-sky-700 transition-all shadow-lg shadow-sky-600/20">
                 Semak Status
             </a>
             @else

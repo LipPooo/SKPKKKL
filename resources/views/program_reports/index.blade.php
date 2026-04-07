@@ -55,7 +55,7 @@
                                 {{ $report->payment_details ?? '-' }}
                             </td>
                             <td class="px-6 py-4 text-right space-x-2">
-                                <a href="{{ route('program-reports.show', $report->id) }}" class="text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
+                                <a href="{{ route('program-reports.show', $report->id) }}" class="text-sky-600 hover:bg-sky-50 px-3 py-1.5 rounded-lg font-bold transition-colors text-xs uppercase tracking-wider">
                                     Butiran
                                 </a>
                                 @if(Auth::user()->isAdmin() || Auth::id() === $report->user_id)
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="flex gap-2">
-                        <a href="{{ route('program-reports.show', $report->id) }}" class="flex-1 text-center bg-white border border-gray-200 text-gray-700 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-sm active:scale-95 transition-all">
+                        <a href="{{ route('program-reports.show', $report->id) }}" class="flex-1 text-center bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-sm active:scale-95 transition-all">
                             Butiran
                         </a>
                         @if(Auth::user()->isAdmin() || Auth::id() === $report->user_id)
