@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Cetak Laporan Program - {{ $report->name_of_program }}</title>
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/KELAB KILAT.jpeg') }}">
+    <link rel="shortcut icon" type="image/jpeg" href="{{ asset('images/KELAB KILAT.jpeg') }}">
     <style>
         body { font-family: sans-serif; line-height: 1.6; color: #333; padding: 20px; }
         h1 { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; }

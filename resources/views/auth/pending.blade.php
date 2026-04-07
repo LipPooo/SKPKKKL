@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Akaun Menunggu Kelulusan - SKPKKKL</title>
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/KELAB KILAT.jpeg') }}">
+    <link rel="shortcut icon" type="image/jpeg" href="{{ asset('images/KELAB KILAT.jpeg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .login-bg {
