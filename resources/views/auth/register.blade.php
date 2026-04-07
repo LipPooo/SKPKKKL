@@ -58,7 +58,7 @@
                 <img src="{{ asset('images/KELAB KILAT.jpeg') }}" alt="Logo Kelab Kilat" class="max-h-full max-w-full object-contain">
             </div>
             <div class="flex items-center px-6">
-                <span class="text-4xl font-bold tracking-tight text-rose-600">SKPKKKL<span class="text-gray-400">.</span></span>
+                <span class="text-4xl font-bold tracking-tight text-white">SKPKKKL<span class="text-gray-400">.</span></span>
             </div>
         </div>
         <h2 class="mt-4 text-center text-2xl font-bold tracking-tight text-gray-900">
