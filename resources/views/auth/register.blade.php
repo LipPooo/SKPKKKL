@@ -15,7 +15,7 @@
         .scroll-container {
             overflow: hidden;
             white-space: nowrap;
-            background: #2563eb;
+            background: #ffee00ff;
             color: white;
             padding: 8px 0;
             font-weight: 600;
