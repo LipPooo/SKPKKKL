@@ -75,41 +75,28 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // Client hantar timestamp bila ia mula-mula load page
-        // Server akan cari notification yang dicipta SELEPAS timestamp itu
-        $since = $request->query('since', null);
-
         // Get unread count
         $unreadCount = $user->unreadNotifications()->count();
 
-        $newNotifications = collect();
-
-        if ($since) {
-            // Cari unread notifications yang dicipta selepas timestamp 'since'
-            $newNotifications = $user->unreadNotifications()
-                ->where('created_at', '>', $since)
-                ->latest()
-                ->take(10)
-                ->get()
-                ->map(function ($n) {
-                    return [
-                        'id'      => $n->id,
-                        'title'   => $n->data['title'] ?? 'Notifikasi',
-                        'message' => $n->data['message'] ?? '',
-                        'url'     => $n->data['url'] ?? '#',
-                        'time'    => $n->created_at->diffForHumans(),
-                        'type'    => $n->data['type'] ?? 'info',
-                    ];
-                });
-        }
-
-        // Masa server sekarang — client simpan ini untuk poll seterusnya
-        $serverTime = now()->toISOString();
+        // Get latest 5 unread notifications
+        $newNotifications = $user->unreadNotifications()
+            ->latest()
+            ->take(5)
+            ->get()
+            ->map(function ($n) {
+                return [
+                    'id'      => $n->id,
+                    'title'   => $n->data['title'] ?? 'Notifikasi',
+                    'message' => $n->data['message'] ?? '',
+                    'url'     => $n->data['url'] ?? '#',
+                    'time'    => $n->created_at->diffForHumans(),
+                    'type'    => $n->data['type'] ?? 'info',
+                ];
+            });
 
         return response()->json([
             'unread_count'      => $unreadCount,
             'new_notifications' => $newNotifications,
-            'server_time'       => $serverTime,
         ]);
     }
 }
