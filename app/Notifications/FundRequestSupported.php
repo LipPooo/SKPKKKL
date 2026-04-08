@@ -31,7 +31,7 @@ class FundRequestSupported extends Notification
             'type' => 'supported_request',
             'fund_request_id' => $this->fundRequest->id,
             'title' => 'Sokongan Diterima',
-            'message' => $this->supporter->name . ' telah menyokong permohonan ' . $this->fundRequest->programReport->name_of_program . '. (' . $this->fundRequest->total_member_approvals . '/18)',
+            'message' => $this->supporter->name . ' telah menyokong permohonan anda untuk ' . $this->fundRequest->programReport->name_of_program . '. (' . $this->fundRequest->total_member_approvals . '/18)',
             'url' => route('fund-requests.show', $this->fundRequest->id),
         ];
     }
