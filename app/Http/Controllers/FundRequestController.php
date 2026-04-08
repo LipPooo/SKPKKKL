@@ -10,6 +10,7 @@ use App\Models\FundRequestApproval;
 use App\Models\User;
 use App\Notifications\FundRequestReadyForBoss;
 use App\Notifications\FundRequestProcessed;
+use App\Notifications\FundRequestSupported;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
@@ -86,6 +87,9 @@ class FundRequestController extends Controller
                 $boss->notify(new FundRequestReadyForBoss($fundRequest));
             }
         }
+
+        // Notify Requester that someone supported
+        $fundRequest->requester->notify(new FundRequestSupported($fundRequest, $user));
 
         return redirect()->route('dashboard')->with('success', 'Anda telah menyokong permohonan ini.');
     }
