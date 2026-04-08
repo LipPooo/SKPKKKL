@@ -140,12 +140,38 @@
         function playSound() {
             const audio = document.getElementById('notif-sound');
             if (audio) {
-                // Ignore play exception if user hasn't interacted with document
                 audio.play().catch(e => { console.log('Audio autoplay disekat browser'); });
             }
         }
 
+        // --- OS Level Notification (Desktop / Mobile) ---
+        function requestOSNotification() {
+            if ("Notification" in window && Notification.permission === "default") {
+                Notification.requestPermission();
+            }
+        }
+
+        // Minta permission bila user klik mana-mana pada screen (syarat browser)
+        document.body.addEventListener('click', requestOSNotification, { once: true });
+
+        function showOSNotification(notif) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                const osNotif = new Notification(notif.title, {
+                    body: notif.message,
+                    icon: '{{ asset("images/KELAB KILAT.jpeg") }}'
+                });
+                osNotif.onclick = function() {
+                    window.focus();
+                    window.location.href = notif.url;
+                };
+            }
+        }
+        // ------------------------------------------------
+
         function showToast(notif) {
+            // Trigger OS Notification
+            showOSNotification(notif);
+
             const container = document.getElementById('toast-container');
             if (!container) return;
 
