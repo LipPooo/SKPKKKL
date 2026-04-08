@@ -1,4 +1,4 @@
-<header class="bg-white/70 backdrop-blur-xl border-b border-gray-200 z-10 sticky top-0">
+<header class="bg-white/70 backdrop-blur-xl border-b border-gray-200 z-50 sticky top-0">
     <div class="flex items-center justify-between h-16 px-6 sm:px-8">
         <div class="flex items-center gap-4">
             <button @click.stop="sidebarOpen = true" class="md:hidden text-gray-500 hover:text-rose-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
