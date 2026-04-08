@@ -75,7 +75,7 @@ class AdminUserController extends Controller
 
         $count = User::whereIn('id', $request->user_ids)->update(['is_approved' => true]);
 
-        return back()->with('success', "Sebanyak {$count} akaun telah diluluskan.");
+        return back()->with('success', "anda telah meluluskan {$count} akaun.");
     }
 
     public function bulkDestroy(Request $request)
@@ -93,6 +93,6 @@ class AdminUserController extends Controller
             User::whereIn('id', $userIds)->delete();
         }
 
-        return back()->with('success', "Sebanyak {$count} akaun telah dipadam.");
+        return back()->with('success', "anda telah memadam {$count} akaun.");
     }
 }

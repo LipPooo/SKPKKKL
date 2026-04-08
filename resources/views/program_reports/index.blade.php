@@ -20,7 +20,7 @@
         <div x-show="selected.length > 0" x-transition.opacity.scale.90 class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-6" style="display: none;" x-cloak>
             <span class="font-bold text-sm"><span x-text="selected.length"></span> laporan dipilih</span>
             <button type="submit" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors" onclick="return confirm('Adakah anda pasti mahu memadam ' + selected.length + ' laporan yang dipilih? Permohonan dana berkaitan juga akan dipadam.')">
-                Padam Terpilih
+                Padam
             </button>
         </div>
 
