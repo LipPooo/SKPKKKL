@@ -122,7 +122,7 @@
 
     <script>
     (function () {
-        const POLL_INTERVAL = 15000; // 15 saat
+        const POLL_INTERVAL = 5000; // 5 saat
         const POLL_URL      = '{{ route("notifications.poll") }}';
         const CSRF_TOKEN    = '{{ csrf_token() }}';
 
@@ -221,8 +221,6 @@
                 try {
                     shownToasts = JSON.parse(localStorage.getItem('skpkkkl_shown_notifs')) || [];
                 } catch(e) { shownToasts = []; }
-
-                const isInitialPageLoad = !sessionStorage.getItem('notif_initialized');
                 
                 if (data.new_notifications && data.new_notifications.length > 0) {
                     let hasNew = false;
@@ -233,11 +231,7 @@
                             // Masukkan ke senarai sejarah supaya tak muncul lagi
                             shownToasts.push(notif.id);
                             hasNew = true;
-                            
-                            // Hanya pop-up jika ini BUKAN masa mula-mula page load (elak spam 5 toast sekaligus)
-                            if (!isInitialPageLoad) {
-                                showToast(notif);
-                            }
+                            showToast(notif);
                         }
                     });
 
@@ -247,11 +241,6 @@
                         localStorage.setItem('skpkkkl_shown_notifs', JSON.stringify(shownToasts));
                     }
                 }
-                
-                // Tandakan page ini sudah initiate polling
-                if (isInitialPageLoad) {
-                    sessionStorage.setItem('notif_initialized', '1');
-                }
 
             } catch (err) {
                 // Senyap — mungkin user offline
@@ -260,11 +249,12 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+            // Check immediately on load for faster feedback
             setTimeout(function () {
                 poll().then(function () {
                     setInterval(poll, POLL_INTERVAL);
                 });
-            }, 1000);
+            }, 500); // Trigger dalam masa 0.5s supaya lebih responsif
         });
     })();
     </script>
