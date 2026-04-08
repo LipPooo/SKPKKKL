@@ -31,7 +31,7 @@
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 font-bold bg-gray-50/10">
                             <th class="px-6 py-4 w-12 text-center">
-                                <input type="checkbox" @click="selected = $event.target.checked ? Array.from(document.querySelectorAll('.report-cb')).map(cb => cb.value) : []" class="rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-4 h-4">
+                                <input type="checkbox" @click="selected = $event.target.checked ? [...new Set(Array.from(document.querySelectorAll('.report-cb')).map(cb => cb.value))] : []" class="rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-4 h-4">
                             </th>
                             <th class="px-6 py-4 font-medium">Nama Program</th>
                             <th class="px-6 py-4 font-medium">Tarikh</th>
