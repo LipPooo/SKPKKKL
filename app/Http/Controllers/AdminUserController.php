@@ -65,4 +65,34 @@ class AdminUserController extends Controller
 
         return redirect()->route('admin.users.index')->with('success', "Akaun {$user->name} telah dikemaskini.");
     }
+
+    public function bulkApprove(Request $request)
+    {
+        $request->validate([
+            'user_ids' => 'required|array',
+            'user_ids.*' => 'exists:users,id',
+        ]);
+
+        $count = User::whereIn('id', $request->user_ids)->update(['is_approved' => true]);
+
+        return back()->with('success', "Sebanyak {$count} akaun telah diluluskan.");
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $request->validate([
+            'user_ids' => 'required|array',
+            'user_ids.*' => 'exists:users,id',
+        ]);
+
+        // Prevents admin from deleting themselves accidentally
+        $userIds = array_diff($request->user_ids, [auth()->id()]);
+        
+        $count = count($userIds);
+        if ($count > 0) {
+            User::whereIn('id', $userIds)->delete();
+        }
+
+        return back()->with('success', "Sebanyak {$count} akaun telah dipadam.");
+    }
 }

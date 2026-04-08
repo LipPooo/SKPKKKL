@@ -114,6 +114,35 @@ class ProgramReportController extends Controller
         return redirect()->route('program-reports.index')->with('success', 'Laporan Program telah berjaya dipadam.');
     }
 
+    public function bulkDestroy(Request $request)
+    {
+        $request->validate([
+            'report_ids' => 'required|array',
+            'report_ids.*' => 'exists:program_reports,id',
+        ]);
+
+        $deletedCount = 0;
+
+        foreach ($request->report_ids as $id) {
+            $report = ProgramReport::find($id);
+            if ($report) {
+                // Security Check: Only admin or the owner can delete
+                if (Auth::user()->isAdmin() || Auth::id() === $report->user_id) {
+                    if ($report->image_proof_path) {
+                        Storage::disk('public')->delete($report->image_proof_path);
+                    }
+                    if ($report->fundRequest) {
+                        $report->fundRequest()->delete();
+                    }
+                    $report->delete();
+                    $deletedCount++;
+                }
+            }
+        }
+
+        return redirect()->route('program-reports.index')->with('success', $deletedCount . ' Laporan Program telah berjaya dipadam.');
+    }
+
     public function print($id)
     {
         $report = ProgramReport::findOrFail($id);

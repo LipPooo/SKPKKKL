@@ -12,12 +12,27 @@
     </div>
     @endif
 
+    <form action="{{ route('program-reports.bulk') }}" method="POST" x-data="{ selected: [] }">
+        @csrf
+        @method('DELETE')
+        
+        <!-- Floating Bulk Action Bar -->
+        <div x-show="selected.length > 0" x-transition.opacity.scale.90 class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-6" style="display: none;" x-cloak>
+            <span class="font-bold text-sm"><span x-text="selected.length"></span> laporan dipilih</span>
+            <button type="submit" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors" onclick="return confirm('Adakah anda pasti mahu memadam ' + selected.length + ' laporan yang dipilih? Permohonan dana berkaitan juga akan dipadam.')">
+                Padam Terpilih
+            </button>
+        </div>
+
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-w-0">
             <!-- Table for Desktop -->
             <div class="overflow-x-auto hidden md:block">
                 <table class="w-full text-left border-collapse min-w-[800px]">
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 font-bold bg-gray-50/10">
+                            <th class="px-6 py-4 w-12 text-center">
+                                <input type="checkbox" @click="selected = $event.target.checked ? Array.from(document.querySelectorAll('.report-cb')).map(cb => cb.value) : []" class="rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-4 h-4">
+                            </th>
                             <th class="px-6 py-4 font-medium">Nama Program</th>
                             <th class="px-6 py-4 font-medium">Tarikh</th>
                             <th class="px-6 py-4 font-medium">Lokasi</th>
@@ -31,6 +46,13 @@
                     <tbody class="divide-y divide-gray-50 text-sm">
                         @forelse($reports as $report)
                         <tr class="hover:bg-gray-50/80 transition-colors group">
+                            <td class="px-6 py-4 text-center">
+                                @if(Auth::user()->isAdmin() || Auth::id() === $report->user_id)
+                                    <input type="checkbox" name="report_ids[]" value="{{ $report->id }}" x-model="selected" class="report-cb rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-4 h-4">
+                                @else
+                                    <input type="checkbox" disabled class="rounded border-gray-200 bg-gray-100 cursor-not-allowed w-4 h-4" title="Tiada kebenaran">
+                                @endif
+                            </td>
                             <td class="px-6 py-4 font-bold text-gray-800">
                                 {{ $report->name_of_program }}
                             </td>
@@ -71,7 +93,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8" class="px-6 py-12 text-center text-gray-500">Tiada laporan program ditemui.</td>
+                            <td colspan="9" class="px-6 py-12 text-center text-gray-500">Tiada laporan program ditemui.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -81,7 +103,14 @@
             <!-- Cards for Mobile -->
             <div class="md:hidden divide-y divide-gray-100">
                 @forelse($reports as $report)
-                <div class="p-5 space-y-4">
+                <div class="p-5 space-y-4 relative">
+                    <!-- Mobile Checkbox Positioned Top Right if authorized -->
+                    @if(Auth::user()->isAdmin() || Auth::id() === $report->user_id)
+                    <div class="absolute top-4 right-4 z-10">
+                        <input type="checkbox" name="report_ids[]" value="{{ $report->id }}" x-model="selected" class="report-cb rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-5 h-5 shadow-sm">
+                    </div>
+                    @endif
+                    
                     <div class="flex justify-between items-start gap-4">
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center gap-2 mb-2">
@@ -135,7 +164,7 @@
                 @endforelse
             </div>
         </div>
-
+    </form>
 </div>
 
 <!-- Floating Print All Button -->

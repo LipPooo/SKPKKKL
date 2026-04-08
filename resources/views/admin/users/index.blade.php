@@ -3,7 +3,34 @@
 @section('title', 'Pengurusan Pengguna - SKPKKKL')
 
 @section('content')
-<div class="max-w-7xl mx-auto space-y-8">
+<div class="max-w-7xl mx-auto space-y-8" x-data="{ selected: [] }">
+    
+    <!-- Floating Bulk Action Bar -->
+    <div x-show="selected.length > 0" x-transition.opacity.scale.90 class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-4 border border-gray-800" style="display: none;" x-cloak>
+        <span class="font-bold text-sm whitespace-nowrap"><span x-text="selected.length"></span> akaun dipilih</span>
+        <div class="h-6 w-px bg-gray-700"></div>
+        
+        <form action="{{ route('admin.users.bulk-approve') }}" method="POST" class="inline m-0 p-0" onsubmit="return confirm('Kelulusan Pukal: Adakah anda pasti mahu meluluskan ' + selected.length + ' akaun yang dipilih?')">
+            @csrf
+            <template x-for="id in selected">
+                <input type="hidden" name="user_ids[]" :value="id">
+            </template>
+            <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-colors whitespace-nowrap">
+                Lulus
+            </button>
+        </form>
+
+        <form action="{{ route('admin.users.bulk') }}" method="POST" class="inline m-0 p-0" onsubmit="return confirm('Padam Pukal: Adakah anda pasti mahu memadam ' + selected.length + ' akaun yang dipilih?')">
+            @csrf
+            @method('DELETE')
+            <template x-for="id in selected">
+                <input type="hidden" name="user_ids[]" :value="id">
+            </template>
+            <button type="submit" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-colors whitespace-nowrap">
+                Padam
+            </button>
+        </form>
+    </div>
     
     <!-- Pending Users Section -->
     <div>
@@ -17,6 +44,9 @@
                 <table class="w-full text-left border-collapse min-w-[700px]">
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 bg-gray-50/10">
+                            <th class="px-6 py-4 w-12 text-center">
+                                <input type="checkbox" @click="selected = $event.target.checked ? Array.from(document.querySelectorAll('.user-cb')).map(cb => cb.value) : []" class="rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-4 h-4">
+                            </th>
                             <th class="px-6 py-4 font-medium">Pengguna</th>
                             <th class="px-6 py-4 font-medium">No Pekerja</th>
                             <th class="px-6 py-4 font-medium">Email</th>
@@ -27,6 +57,9 @@
                     <tbody class="divide-y divide-gray-50 text-sm">
                         @forelse($pendingUsers as $user)
                         <tr class="hover:bg-gray-50/80 transition-colors group">
+                            <td class="px-6 py-4 text-center">
+                                <input type="checkbox" value="{{ $user->id }}" x-model="selected" class="user-cb rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-4 h-4">
+                            </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
                                     <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-8 h-8 rounded-lg object-cover border border-gray-100 shadow-sm">
@@ -57,9 +90,7 @@
                         </tr>
                         @empty
                         <tr>
-                        <tr>
-                            <td colspan="5" class="px-6 py-12 text-center text-gray-500">Tiada pendaftaran menunggu kelulusan.</td>
-                        </tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-gray-500">Tiada pendaftaran menunggu kelulusan.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -69,7 +100,10 @@
             <!-- Cards for Mobile -->
             <div class="md:hidden divide-y divide-gray-100">
                 @forelse($pendingUsers as $user)
-                <div class="p-5 space-y-4">
+                <div class="p-5 space-y-4 relative">
+                    <div class="absolute top-4 right-4 z-10">
+                        <input type="checkbox" value="{{ $user->id }}" x-model="selected" class="user-cb rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-5 h-5 shadow-sm">
+                    </div>
                     <div class="flex items-start gap-4">
                         <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-12 h-12 rounded-xl object-cover border border-gray-100 shadow-sm">
                         <div class="min-w-0 flex-1">
@@ -119,6 +153,9 @@
                 <table class="w-full text-left border-collapse min-w-[700px]">
                     <thead>
                         <tr class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100 bg-gray-50/10">
+                            <th class="px-6 py-4 w-12 text-center">
+                                <input type="checkbox" disabled class="rounded border-gray-200 bg-gray-100 w-4 h-4" title="Pilih semua (Global)">
+                            </th>
                             <th class="px-6 py-4 font-medium">Pengguna</th>
                             <th class="px-6 py-4 font-medium">No Pekerja</th>
                             <th class="px-6 py-4 font-medium">Email</th>
@@ -130,6 +167,13 @@
                     <tbody class="divide-y divide-gray-50 text-sm">
                         @foreach($approvedUsers as $user)
                         <tr class="hover:bg-gray-50/80 transition-colors group">
+                            <td class="px-6 py-4 text-center">
+                                @if($user->id !== Auth::id())
+                                    <input type="checkbox" value="{{ $user->id }}" x-model="selected" class="user-cb rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-4 h-4">
+                                @else
+                                    <input type="checkbox" disabled class="rounded border-gray-200 bg-gray-100 cursor-not-allowed w-4 h-4" title="Anda tidak boleh padam diri sendiri">
+                                @endif
+                            </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
                                     <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-8 h-8 rounded-lg object-cover border border-gray-100 shadow-sm">
@@ -165,7 +209,12 @@
             <!-- Cards for Mobile -->
             <div class="md:hidden divide-y divide-gray-100">
                 @foreach($approvedUsers as $user)
-                <div class="p-5 space-y-4">
+                <div class="p-5 space-y-4 relative">
+                    @if($user->id !== Auth::id())
+                    <div class="absolute top-4 right-4 z-10">
+                        <input type="checkbox" value="{{ $user->id }}" x-model="selected" class="user-cb rounded border-gray-300 text-rose-600 focus:ring-rose-500 cursor-pointer w-5 h-5 shadow-sm">
+                    </div>
+                    @endif
                     <div class="flex items-start gap-4">
                         <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="w-12 h-12 rounded-xl object-cover border border-gray-100 shadow-sm">
                         <div class="min-w-0 flex-1">

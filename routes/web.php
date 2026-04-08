@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
 
     // Admin Routes
     Route::middleware(AdminMiddleware::class)->prefix('admin')->name('admin.')->group(function () {
+        Route::delete('/users/bulk', [AdminUserController::class, 'bulkDestroy'])->name('users.bulk');
+        Route::post('/users/bulk-approve', [AdminUserController::class, 'bulkApprove'])->name('users.bulk-approve');
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
         Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
         Route::patch('/users/{id}', [AdminUserController::class, 'update'])->name('users.update');
@@ -35,6 +37,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Program Reports
+    Route::delete('program-reports/bulk', 'App\Http\Controllers\ProgramReportController@bulkDestroy')->name('program-reports.bulk');
     Route::get('program-reports/print-all', 'App\Http\Controllers\ProgramReportController@printAll')->name('program-reports.print-all');
     Route::get('program-reports/{id}/print', 'App\Http\Controllers\ProgramReportController@print')->name('program-reports.print');
     Route::resource('program-reports', \App\Http\Controllers\ProgramReportController::class);
