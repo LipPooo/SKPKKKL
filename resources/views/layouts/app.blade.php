@@ -219,7 +219,7 @@
                 // Dapatkan senarai ID notifikasi yang TELAHPUN dipaparkan dari localStorage
                 let shownToasts = [];
                 try {
-                    shownToasts = JSON.parse(localStorage.getItem('skpkkkl_shown_notifs')) || [];
+                    shownToasts = JSON.parse(localStorage.getItem('skpkkkl_shown_notifs_v2')) || [];
                 } catch(e) { shownToasts = []; }
                 
                 if (data.new_notifications && data.new_notifications.length > 0) {
@@ -238,7 +238,7 @@
                     if (hasNew) {
                         // Kekalkan maksimum 50 ID terakhir dalam sejarah untuk jimat memori
                         if (shownToasts.length > 50) shownToasts = shownToasts.slice(-50);
-                        localStorage.setItem('skpkkkl_shown_notifs', JSON.stringify(shownToasts));
+                        localStorage.setItem('skpkkkl_shown_notifs_v2', JSON.stringify(shownToasts));
                     }
                 }
 
